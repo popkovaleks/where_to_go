@@ -16,7 +16,7 @@ def index(request):
             "properties": {
                 "title": item.title_short,
                 "placeId": item.placeId,
-                "detailsUrl": "#"
+                "detailsUrl": f"places/{item.pk}"
             }
         }
         features.append(feature)
@@ -36,7 +36,7 @@ def detail_data(request, id):
     obj = get_object_or_404(Place, pk=id)
     data = {
         "title": obj.title,
-        "img":[img.image.url for img in obj.images.all()],
+        "imgs":[img.image.url for img in obj.images.all()],
         "description_short": obj.description_short,
         "description_long": obj.description_long,
         "coordinates": {
