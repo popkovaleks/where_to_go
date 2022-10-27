@@ -1,36 +1,47 @@
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
 
+from places.models import Place
 
 def index(request):
-    geo_data = {"geo_data": {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "static/places/moscow_legends.json"
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "static/places/roofs24.json"
-          }
+    query = Place.objects.all()
+    features = []
+    for item in query:
+        feature = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [item.lng, item.lat]
+            },
+            "properties": {
+                "title": item.title_short,
+                "placeId": item.placeId,
+                "detailsUrl": "#"
+            }
         }
-      ]
-    }
+        features.append(feature)
+
+    geo_data = {
+        "geo_data": {
+            "type": "FeatureCollection",
+            "features": features
+        }
     }
 
     return render(request, 'index.html', geo_data)
+
+
+def detail_data(request, id):
+    print(request)
+    obj = get_object_or_404(Place, pk=id)
+    data = {
+        "title": obj.title,
+        "img":[img.image.url for img in obj.images.all()],
+        "description_short": obj.description_short,
+        "description_long": obj.description_long,
+        "coordinates": {
+            "lat": obj.lat,
+            "lng": obj.lng
+        }
+    }
+    return JsonResponse(data)
