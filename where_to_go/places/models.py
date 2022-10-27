@@ -1,8 +1,7 @@
-from distutils.command.upload import upload
-from unittest.util import _MAX_LENGTH
 from django.db import models
+from tinymce.models import HTMLField
 
-# Create your models here.
+
 class Place(models.Model):
     title = models.CharField(max_length=200)
 
@@ -10,9 +9,9 @@ class Place(models.Model):
 
     placeId = models.CharField(max_length=200, null=True)
 
-    description_short = models.TextField()
+    description_short = HTMLField()
 
-    description_long = models.TextField()
+    description_long = HTMLField()
 
     lng = models.FloatField()
 
