@@ -31,5 +31,8 @@ class Image(models.Model):
 
     image = models.ImageField()
 
+    class Meta:
+        ordering = ['order_num',]
+
     def __str__(self):
         return f'{self.order_num} {self.name}'

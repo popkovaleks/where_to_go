@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 
 from places.models import Place, Image
 
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
 
     fields = ['image', 'image_preview', 'order_num']
