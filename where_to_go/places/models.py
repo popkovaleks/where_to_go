@@ -1,13 +1,14 @@
+from enum import unique
 from django.db import models
 from tinymce.models import HTMLField
 
 
 class Place(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
 
     title_short = models.CharField(max_length=200, null=True)
 
-    placeId = models.CharField(max_length=200, null=True)
+    placeId = models.CharField(max_length=200, null=True, blank=True)
 
     description_short = HTMLField()
 
