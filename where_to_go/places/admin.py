@@ -25,6 +25,3 @@ class PlaceAdmin(admin.ModelAdmin):
     search_fields = ['title', 'title_short']
     inlines = [ImageInline,]
 
-# @admin.register(Image)
-# class ImageAdmin(admin.ModelAdmin):
-#     pass
