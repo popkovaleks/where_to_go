@@ -61,10 +61,9 @@ WSGI_APPLICATION = 'where_to_go.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / env('DB_NAME'),
+        'NAME': env('DB_NAME'),
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -94,9 +93,9 @@ USE_TZ = True
 
 STATIC_URL = env('STATIC_URL')
 STATICFILES_DIRS = [BASE_DIR / "static",]
-STATIC_ROOT = BASE_DIR / env('STATIC_ROOT')
+STATIC_ROOT = env('STATIC_ROOT')
 MEDIA_URL = env('MEDIA_URL')
-MEDIA_ROOT = BASE_DIR / env('MEDIA_ROOT')
+MEDIA_ROOT = env('MEDIA_ROOT')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
