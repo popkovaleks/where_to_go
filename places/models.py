@@ -32,4 +32,4 @@ class Image(models.Model):
         ordering = ['order_num', ]
 
     def __str__(self):
-        return f'{self.order_num} {self.name}'
+        return f'{self.order_num} {self.image.name}'
