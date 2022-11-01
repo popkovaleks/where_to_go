@@ -5,7 +5,6 @@ from django.core.files.base import ContentFile
 from places.models import Place, Image
 
 
-
 class Command(BaseCommand):
     help = 'Загрузка нового места из json'
 
@@ -26,14 +25,14 @@ class Command(BaseCommand):
         )
 
         for i, img_link in enumerate(response.get('imgs'), start=1):
-            
+
             resp_img = requests.get(img_link)
             img, created = Image.objects.get_or_create(
                 name=response.get('title'),
                 place=place,
                 order_num=i
             )
-            
+
             content_file = ContentFile(resp_img.content)
             img.image.save(
                 img_link.split('/')[-1],

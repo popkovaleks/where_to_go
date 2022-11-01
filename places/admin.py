@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
+from adminsortable2.admin import SortableInlineAdminMixin
 
 from places.models import Place, Image
 
@@ -21,7 +21,6 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ('id', 'title_short')
-    list_display_links = ('title_short',)
+    list_display_links = ('title_short', )
     search_fields = ['title', 'title_short']
-    inlines = [ImageInline,]
-
+    inlines = [ImageInline, ]

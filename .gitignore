@@ -1,6 +1,8 @@
 .env
 *.pyc
-where_to_go/where_to_go/media/
-where_to_go/where_to_go/static_files/
-where_to_go/where_to_go/__pychache__/
+where_to_go/media/
+where_to_go/static_files/
+where_to_go/__pychache__/
 where_to_go/*/__pychache__/
+.vscode/
+db.sqlite3
