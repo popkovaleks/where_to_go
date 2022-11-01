@@ -17,7 +17,6 @@ class Command(BaseCommand):
 
         place, created = Place.objects.get_or_create(
             title=response.get('title'),
-            title_short=response.get('title'),
             description_short=response.get('description_short'),
             description_long=response.get('description_long'),
             lng=response.get('coordinates').get('lng'),
@@ -28,7 +27,6 @@ class Command(BaseCommand):
 
             resp_img = requests.get(img_link)
             img, created = Image.objects.get_or_create(
-                name=response.get('title'),
                 place=place,
                 order_num=i
             )

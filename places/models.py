@@ -5,13 +5,9 @@ from tinymce.models import HTMLField
 class Place(models.Model):
     title = models.CharField(max_length=200, unique=True)
 
-    title_short = models.CharField(max_length=200, null=True)
+    description_short = HTMLField(blank=True, null=True)
 
-    placeId = models.CharField(max_length=200, null=True, blank=True)
-
-    description_short = HTMLField()
-
-    description_long = HTMLField()
+    description_long = HTMLField(blank=True, null=True)
 
     lng = models.FloatField()
 
@@ -22,7 +18,6 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    name = models.CharField(max_length=200)
 
     order_num = models.IntegerField(default=1)
 
