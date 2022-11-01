@@ -26,6 +26,19 @@ MEDIA_URL=
 MEDIA_ROOT=
 DEBUG=
 ```
+Описание всех переменных окружения можно найти в [документации](https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/).
+
+Пример заполнения файла .env на локальной машине:
+```
+SECRET_KEY=<secret key>
+ALLOWED_HOSTS=127.0.0.1,
+DB_NAME='db.sqlite3'
+STATIC_URL='/static/'
+STATIC_ROOT='where_to_go/static_files'
+MEDIA_URL='/media/'
+MEDIA_ROOT='where_to_go/media'
+DEBUG=True
+```
 Тестовый запуск на локальной машине можно осуществить с помощью команды:
 ```
 python3 manage.py runserver
