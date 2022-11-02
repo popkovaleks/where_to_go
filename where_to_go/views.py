@@ -15,8 +15,7 @@ def index(request):
                 'coordinates': [item.lng, item.lat]
             },
             'properties': {
-                'title': item.title_short,
-                'placeId': item.placeId,
+                'title': item.title,
                 'detailsUrl': f'places/{item.pk}'
             }
         }
@@ -33,7 +32,6 @@ def index(request):
 
 
 def detail_data(request, id):
-    print(request)
     obj = get_object_or_404(Place, pk=id)
     data = {
         'title': obj.title,
