@@ -6,3 +6,4 @@ where_to_go/__pychache__/
 where_to_go/*/__pychache__/
 .vscode/
 db.sqlite3
+.DS_Store
