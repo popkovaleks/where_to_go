@@ -1,30 +1,31 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 from places.models import Place
+
 
 def index(request):
     query = Place.objects.all()
     features = []
     for item in query:
         feature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [item.lng, item.lat]
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [item.lng, item.lat]
             },
-            "properties": {
-                "title": item.title_short,
-                "placeId": item.placeId,
-                "detailsUrl": f"places/{item.pk}"
+            'properties': {
+                'title': item.title_short,
+                'placeId': item.placeId,
+                'detailsUrl': f'places/{item.pk}'
             }
         }
         features.append(feature)
 
     geo_data = {
-        "geo_data": {
-            "type": "FeatureCollection",
-            "features": features
+        'geo_data': {
+            'type': 'FeatureCollection',
+            'features': features
         }
     }
 
@@ -35,13 +36,13 @@ def detail_data(request, id):
     print(request)
     obj = get_object_or_404(Place, pk=id)
     data = {
-        "title": obj.title,
-        "imgs":[img.image.url for img in obj.images.all()],
-        "description_short": obj.description_short,
-        "description_long": obj.description_long,
-        "coordinates": {
-            "lat": obj.lat,
-            "lng": obj.lng
+        'title': obj.title,
+        'imgs': [img.image.url for img in obj.images.all()],
+        'description_short': obj.description_short,
+        'description_long': obj.description_long,
+        'coordinates': {
+            'lat': obj.lat,
+            'lng': obj.lng
         }
     }
     return JsonResponse(data)
