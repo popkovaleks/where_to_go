@@ -13,14 +13,19 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         address = kwargs['link']
-        response = requests.get(address).json()
+        response = requests.get(address)
 
+        if response.status_code != 200:
+            print(f'status: {response.status_code}, text: {response.text}')
+            return
+        
+        response = response.json()
         place, created = Place.objects.get_or_create(
             title=response.get('title'),
-            description_short=response.get('description_short'),
-            description_long=response.get('description_long'),
-            lng=response.get('coordinates').get('lng'),
-            lat=response.get('coordinates').get('lat')
+            defaults={'description_short': response.get('description_short'),
+                       'description_long': response.get('description_long'),
+                       'lng': response.get('coordinates').get('lng'),
+                       'lat': response.get('coordinates').get('lat')}
         )
 
         for i, img_link in enumerate(response.get('imgs'), start=1):
