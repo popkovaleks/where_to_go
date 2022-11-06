@@ -27,19 +27,15 @@ class Command(BaseCommand):
                        'lng': response.get('coordinates').get('lng'),
                        'lat': response.get('coordinates').get('lat')}
         )
-        print(created)
+        
         if created and response.get('imgs'):
             for i, img_link in enumerate(response.get('imgs'), start=1):
 
                 resp_img = requests.get(img_link)
                 img, created_img = Image.objects.get_or_create(
                     place=place,
-                    order_num=i
+                    order_num=i,
+                    image=ContentFile(resp_img.content,
+                                        name=img_link.split('/')[-1])
                 )
 
-                content_file = ContentFile(resp_img.content)
-                img.image.save(
-                    img_link.split('/')[-1],
-                    content_file,
-                    save=True
-                )
