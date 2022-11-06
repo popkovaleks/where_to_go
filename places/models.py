@@ -9,9 +9,9 @@ class Place(models.Model):
 
     description_long = HTMLField(blank=True)
 
-    lng = models.FloatField()
+    lng = models.FloatField(null=True)
 
-    lat = models.FloatField()
+    lat = models.FloatField(null=True)
 
     def __str__(self):
         return self.title
