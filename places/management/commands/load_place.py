@@ -21,24 +21,25 @@ class Command(BaseCommand):
         
         response = response.json()
         place, created = Place.objects.get_or_create(
-            title=response.get('title'),
+            title=response.get('title', 'Введите название!'),
             defaults={'description_short': response.get('description_short', ''),
                        'description_long': response.get('description_long', ''),
                        'lng': response.get('coordinates').get('lng'),
                        'lat': response.get('coordinates').get('lat')}
         )
+        print(created)
+        if created and response.get('imgs'):
+            for i, img_link in enumerate(response.get('imgs'), start=1):
 
-        for i, img_link in enumerate(response.get('imgs'), start=1):
+                resp_img = requests.get(img_link)
+                img, created_img = Image.objects.get_or_create(
+                    place=place,
+                    order_num=i
+                )
 
-            resp_img = requests.get(img_link)
-            img, created = Image.objects.get_or_create(
-                place=place,
-                order_num=i
-            )
-
-            content_file = ContentFile(resp_img.content)
-            img.image.save(
-                img_link.split('/')[-1],
-                content_file,
-                save=True
-            )
+                content_file = ContentFile(resp_img.content)
+                img.image.save(
+                    img_link.split('/')[-1],
+                    content_file,
+                    save=True
+                )
