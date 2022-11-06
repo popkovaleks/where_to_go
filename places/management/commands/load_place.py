@@ -22,8 +22,8 @@ class Command(BaseCommand):
         response = response.json()
         place, created = Place.objects.get_or_create(
             title=response.get('title'),
-            defaults={'description_short': response.get('description_short'),
-                       'description_long': response.get('description_long'),
+            defaults={'description_short': response.get('description_short', ''),
+                       'description_long': response.get('description_long', ''),
                        'lng': response.get('coordinates').get('lng'),
                        'lat': response.get('coordinates').get('lat')}
         )
