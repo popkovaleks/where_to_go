@@ -44,4 +44,8 @@ def get_detail_data(request, place_id):
             'lng': place.lng
         }
     }
-    return JsonResponse(place_info, json_dumps_params={'ensure_ascii': False, 'indent': 2})
+    return JsonResponse(place_info,
+                        json_dumps_params={
+                            'ensure_ascii': False,
+                            'indent': 2
+                            })
