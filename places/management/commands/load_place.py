@@ -31,12 +31,12 @@ class Command(BaseCommand):
                 print('Title or coordinates was not set')
                 return
 
-            if created and response.get('imgs'):
+            if created:
                 for i, img_link in enumerate(response.get('imgs', []), start=1):
 
                     resp_img = requests.get(img_link)
                     if resp_img.ok:
-                        img, created_img = Image.objects.get_or_create(
+                        Image.objects.get_or_create(
                             place=place,
                             order_num=i,
                             image=ContentFile(resp_img.content,
